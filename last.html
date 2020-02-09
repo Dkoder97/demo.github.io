@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>20+</title>
+		<meta charset="utf-8">
+		       
+        <script src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/printer.js"></script>
+		<style type="text/css">
+
+
+            .myaudio{width:100%;height:60px;background-color: none; 
+background-color: transparent; /*效果同none*/ 
+position: fixed;bottom:0;}
+            .myaudio>.myaudio-center{max-width:500px;height:100%;width:100%;position: absolute;top:0 background-color: none; 
+background-color: transparent;}
+            .myaudio>.myaudio-center>.aud-btn{height:50px;width:50px;position: absolute;top:5px;left:10px}
+            .myaudio>.myaudio-center>.aud-btn>img{height:100%;width:100%;}
+            .myaudio>.myaudio-center>.aud-show{height:100%;position: absolute;left:65px;}
+            .myaudio>.myaudio-center>.aud-show>#Progress-time,.myaudio>.myaudio-center>.aud-show>#Progress-end{
+               width:40px; height:100%;font-size: 13px;line-height: 60px;text-align: center;
+            }
+            .myaudio>.myaudio-center>.aud-show>#Progress-time{position: absolute;left:0;}
+            .myaudio>.myaudio-center>.aud-show>#Progress{position: absolute;left:50px;top:28px;height:6px;background: #8cd287}
+            .myaudio>.myaudio-center>.aud-show>#Progress-end{position: absolute;right:0;}
+            .myaudio>.myaudio-center>.aud-show>#Progress>#jin{
+                width:6px;height:6px;background-color: blue;position: absolute;left:0px;;
+            }
+            .myaudio>.myaudio-center>.aud-show>#Progress>#yuan{
+                width:9px;height:9px;background-color: #fff;border: 1px solid #92d79b;border-radius: 6px;position: absolute;left:-3px;top:-2px;
+            }
+
+
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+}
+
+#show-board{ 
+
+position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+text-align:left;
+background-color: none; 
+background-color: transparent; /*效果同none*/ 
+} 
+
+	
+
+			body {
+				background-color: #326696;
+				margin: 0px;
+				overflow: hidden;
+				font-family:Monospace;
+				font-size:13px;
+				text-align:center;
+				font-weight: bold;
+				text-align:center;
+			}
+
+			a {
+				color:#0078ff;
+			}
+
+		</style>
+	</head>
+	<body>
+    
+    <script>
+    	var str = '';
+    	function her(){
+    		document.getElementById('show-board').innerHTML = ' ';
+    		  str = '';
+        str += 'to 小冯同学\n';
+        str += '怎么样，这个背景不错吧哈哈哈（如果没出bug的话T_T)\n';
+        str += '你知道为什么要选这个背景嘛？\n';
+        str += '因为我觉得它   和你的名字很配啊\n';
+        str += '我去查了一下子\n';
+        str += '皓，是太阳出来时光明的样子，雯，是带有花色纹理的云\n';
+        str += '这两个字组合在一起，我猜大概就是这个背景了\n';
+        str += '很漂亮的吧\n';
+        str += '所以呀,如果以后你有心情不好的时候\n';
+        str += '就抬头看看天空吧～\n';
+        str += '总有一朵云，愿意带走你所有的不愉快\n';
+        str += '难过啊压力啊什么的，都随风去吧\n'; 
+        str += '毕竟人间不值得（误，删掉）\n';
+        str += '关于未来嘛，祝你继续大吉大利下去23333\n';
+        str += '继续变得靠谱，可以被依赖\n';
+        str += '遇见的人都很有趣\n';
+        str += '见到的景色都惊艳,听到的歌都心动\n';
+        str += '看到的书走过的路都不会辜负你\n';
+        str += '值得追忆，珍惜的东西永不变质\n';
+        str += '快快乐乐地度过剩下的四分之三甚至更多,一定可以的\n';
+        str += '还有啊，生日什么的,我倒不认为是反思回顾的借口\n';
+        str += '因为大家平时都好忙，感觉想说什么话也没机会\n';
+        str += '到过生日时候才发现，原来还有这么多人在意我，希望看到我越来越好\n';
+        str += '很开心啊不是吗\n';
+        str += '总而言之呢\n';
+        str += '“平安喜乐，万事胜意”\n';
+        str += '未来开心点～ 别忘了，“皓雯”这个名字，是会发光的～\n';
+        str += '然后，有没有觉得bgm吼吼听啊哈哈哈\n';
+        str += '这段《路小雨》，是我最喜欢的一段了\n';
+        str += '送给你啦，希望你也喜欢～\n';
+        str += '满月？快乐（虽然不知道做出来的时候是不是已经超期了T_T），20+，加油～\n';
+        str += '—---- from 一位没什么文化还强行煽情自己觉得有`尴尬的程序员';
+
+
+        Printer.init(str, {
+            selector: 'show-board',
+            lnStr: ''
+            //root@demo ~/ # 
+        }).print();
+    	}
+      
+    </script>
+
+
+
+
+		<script type="text/javascript" src="js/three.min.js"></script>
+		<script type="text/javascript" src="js/Detector.js"></script>
+
+		<script id="vs" type="x-shader/x-vertex">
+
+			varying vec2 vUv;
+
+			void main() {
+
+				vUv = uv;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+			}
+
+		</script>
+
+		<script id="fs" type="x-shader/x-fragment">
+
+			uniform sampler2D map;
+
+			uniform vec3 fogColor;
+			uniform float fogNear;
+			uniform float fogFar;
+
+			varying vec2 vUv;
+
+			void main() {
+
+				float depth = gl_FragCoord.z / gl_FragCoord.w;
+				float fogFactor = smoothstep( fogNear, fogFar, depth );
+
+				gl_FragColor = texture2D( map, vUv );
+				gl_FragColor.w *= pow( gl_FragCoord.z, 20.0 );
+				gl_FragColor = mix( gl_FragColor, vec4( fogColor, gl_FragColor.w ), fogFactor );
+
+			}
+
+		</script>
+
+		<script type="text/javascript">
+
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+
+			var container;
+			var camera, scene, renderer;
+			var mesh, geometry, material;
+
+			var mouseX = 0, mouseY = 0;
+			var start_time = Date.now();
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			init();
+
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				// Bg gradient
+
+				var canvas = document.createElement( 'canvas' );
+				canvas.width = 32;
+				canvas.height = window.innerHeight;
+
+				var context = canvas.getContext( '2d' );
+
+				var gradient = context.createLinearGradient( 0, 0, 0, canvas.height );
+				gradient.addColorStop(0, "#1e4877");
+				gradient.addColorStop(0.5, "#4584b4");
+
+				context.fillStyle = gradient;
+				context.fillRect(0, 0, canvas.width, canvas.height);
+
+				container.style.background = 'url(' + canvas.toDataURL('images/png') + ')';
+				container.style.backgroundSize = '32px 100%';
+
+				//
+
+				camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 3000 );
+				camera.position.z = 6000;
+
+				scene = new THREE.Scene();
+
+				geometry = new THREE.Geometry();
+
+				var texture = THREE.ImageUtils.loadTexture( 'images/cloud10.png', null, animate );
+				texture.magFilter = THREE.LinearMipMapLinearFilter;
+				texture.minFilter = THREE.LinearMipMapLinearFilter;
+
+				var fog = new THREE.Fog( 0x4584b4, - 100, 3000 );
+
+				material = new THREE.ShaderMaterial( {
+
+					uniforms: {
+
+						"map": { type: "t", value: texture },
+						"fogColor" : { type: "c", value: fog.color },
+						"fogNear" : { type: "f", value: fog.near },
+						"fogFar" : { type: "f", value: fog.far },
+
+					},
+					vertexShader: document.getElementById( 'vs' ).textContent,
+					fragmentShader: document.getElementById( 'fs' ).textContent,
+					depthWrite: false,
+					depthTest: false,
+					transparent: true
+
+				} );
+
+				var plane = new THREE.Mesh( new THREE.PlaneGeometry( 64, 64 ) );
+
+				for ( var i = 0; i < 8000; i++ ) {
+
+					plane.position.x = Math.random() * 1000 - 500;
+					plane.position.y = - Math.random() * Math.random() * 200 - 15;
+					plane.position.z = i;
+					plane.rotation.z = Math.random() * Math.PI;
+					plane.scale.x = plane.scale.y = Math.random() * Math.random() * 1.5 + 0.5;
+
+					THREE.GeometryUtils.merge( geometry, plane );
+
+				}
+
+				mesh = new THREE.Mesh( geometry, material );
+				scene.add( mesh );
+
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.position.z = - 8000;
+				scene.add( mesh );
+
+				renderer = new THREE.WebGLRenderer( { antialias: false } );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = ( event.clientX - windowHalfX ) * 0.25;
+				mouseY = ( event.clientY - windowHalfY ) * 0.15;
+
+			}
+
+			function onWindowResize( event ) {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				position = ( ( Date.now() - start_time ) * 0.03 ) % 8000;
+
+				camera.position.x += ( mouseX - camera.position.x ) * 0.01;
+				camera.position.y += ( - mouseY - camera.position.y ) * 0.01;
+				camera.position.z = - position + 8000;
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+       <div class="myaudio">
+            <div class="myaudio-center">
+                <audio id="aud">
+                    <source src='bg.mp3' type='audio/ogg' width='300px' >
+                    <source src='bg.mp3' type='audio/mpeg' width='300px' >
+                    <source src='bg.mp3' type='audio/wav' width='300px' >
+                    浏览器不支持此格式
+                </audio>
+                <div class="aud-btn">
+                    <img src="images/play.png" id="play" />
+                </div>
+                <div class="aud-show">
+                    <div id="Progress-time">00:00</div> 
+                    <div id="Progress">
+                        <span id="jin"></span><span id="yuan"></span> 
+                    </div> 
+                    <div id="Progress-end">00:00</div> 
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+            //底部显示区域总宽度
+            var footerW = $('.myaudio').width();
+            //中央显示区域的宽度
+            var audioW = $('.myaudio-center').width();
+            //alert(footerW);
+            //alert(audioW);
+            $('.myaudio-center').css({'left':(footerW-audioW)/2})
+            $('.aud-show').css({'width':audioW-70})
+            $('#Progress').css({'width':audioW-170})
+       
+            var i=0;
+          
+            $('#play').click(function () {
+
+                i++;
+                if (i % 2 != 0) {
+ var div = document.createElement("div");
+div.id="show-board";//或者div.setAttribute("id","mydiv");
+document.body.appendChild(div);
+document.getElementById('show-board').innerHTML = '';
+her();
+                    $(this).attr('src', 'images/pause.png');
+                    aud_play();
+                } else {
+
+                	
+                    $(this).attr('src', 'images/play.png');
+                    aud_pause()
+                    window.location.reload(true); 
+                }
+            }) 
+            var music;
+            var audio = document.getElementById("aud");
+
+            function aud_play(q=0) {
+                audio.currentTime = q;
+                audio.play();
+                music = setInterval(function () {
+                    var curtime = audio.currentTime.toFixed(2);//播放进度
+                    var durtime = audio.duration.toFixed(2);//播放时间
+                    var str = "00:00";
+                   
+                    var time = formatSeconds(curtime);
+                  
+                    var time1 = str.substring(0, str.length - formatSeconds(durtime).length) + formatSeconds(durtime);
+               
+                    $('#Progress-time').html(time);
+                    $('#Progress-end').html(time1);
+                    $width = curtime / durtime * (audioW - 181);
+                    $('#jin').css({width: $width})
+                    $('#yuan').css({left: $width})
+                }, 100);
+            }
+            function aud_pause() {
+                document.getElementById("aud").pause();
+                clearInterval(music);
+            }
+         
+            function formatSeconds(value) {
+                var theTime = parseInt(value);// 秒
+                var theTime1 = 0;// 分
+                var theTime2 = 0;// 小时
+                if (theTime > 60) {
+                    theTime1 = parseInt(theTime / 60);
+                    theTime = parseInt(theTime % 60);
+                    if (theTime1 > 60) {
+                        theTime2 = parseInt(theTime1 / 60);
+                        theTime1 = parseInt(theTime1 % 60);
+                    }
+                }
+                var result = "" + theTime;
+                result  =   (result.length==1)?'0'+result:result;
+                if (theTime1 > 0) {
+                    theTime1  =   (theTime1.length==1)?'0'+theTime1:theTime1;
+                    
+                    result = "" + theTime1 + ":" + result;
+                }
+                if (theTime2 > 0) {
+                    theTime2  =   (theTime2.length==1)?'0'+theTime2:theTime2;
+                    result = "" + theTime2 + ":" + result;
+                }
+                result =   (result.length==2)?'00:'+result:result;
+                return result;
+            }
+            
+            var cont = $("#yuan");
+            var contW = $("#yuan").width();
+            var startX, sX, moveX, disX;
+            var winW = $('#Progress').width();
+            $("#yuan").on({//绑定事件
+                touchstart: function (e) {
+                    
+                    startX = e.originalEvent.targetTouches[0].pageX;    //获取点击点的X坐标 
+                    sX = $(this).offset().left-110;//相对于当前窗口X轴的偏移量
+                    leftX = startX - sX;//鼠标所能移动的最左端是当前鼠标距div左边距的位置
+                    rightX = winW - contW + leftX;//鼠标所能移动的最右端是当前窗口距离减去鼠标距div最右端位置
+                },
+                touchmove: function (e) {
+                    //aud_pause();
+                    e.preventDefault();
+                    moveX = e.originalEvent.targetTouches[0].pageX;//移动过程中X轴的坐标
+                   
+                    if(moveX<leftX){moveX=leftX;}                               
+                    if(moveX>rightX){moveX=rightX;}
+                    $(this).css({
+                        "left":moveX+sX-startX,
+                    });
+                    $('#jin').width($(this).width()+moveX+sX-startX);
+                   var w = audio.duration.toFixed(2)*($('#jin').width()/winW)
+                    $('#play').attr('src', 'images/pause.png');
+                    aud_play(w)
+                },
+                mousedown: function (ev) {
+                    aud_pause()
+                    var patch = parseInt($(this).css("height")) / 2;
+                    var left1 = parseInt($(this).parents('.myaudio-center').css("left"));
+                    
+                    
+                    $(this).mousemove(function (ev) {
+                        var oEvent = ev || event;
+                       // console.log(oEvent);
+                        var oX = oEvent.clientX;
+                        console.log(oX);
+                        var l = oX - patch-left1-115;//115为$("#yuan")的起始位置到$('.myaudio-center')左边的距离
+                        console.log(l);
+                        var w = $(window).width() - $(this).width();
+                        console.log(w);
+                        if (l < 0) {
+                            l = 0
+                        }
+                        if (l > w) {
+                            l = w
+                        }
+                        $(this).css({left: l})
+                        $('#jin').width($(this).width()+l);
+                        var w = audio.duration.toFixed(2)*($('#jin').width()/winW)
+                         $('#play').attr('src', 'images/pause.png');
+                         aud_play(w)
+                    });
+                    $(this).mouseup(function () {
+                        $(this).unbind('mousemove');
+                    });
+                }
+            });
+
+        </script>
+
+
+	</body>
+</html>

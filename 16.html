@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>2018.10.17</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital-7_mono.ttf') format("truetype");
+		}
+	</style>
+	<link href="css/default1.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body>
+	<div id="mainDiv">
+		<div id="content">
+			<div id="code">
+				不知不觉啊<br>
+				一年又这么过去了<br>
+				我这就20岁了？？？<br>
+				好像在小时候的认知里面<br>
+				20岁已经可以喊阿姨了。。<br>
+				但是无所谓了，仙女又不会老～<br>
+				而且，舍友零点帮我庆生<br>
+				可以说是很感动了～<br>
+				很开心有这些朋友能一直陪着我～<br>
+				也很开心能遇到那些志同道合的人们<br>
+				我也要快马加鞭<br>
+				让自己变得更好了吧～<br>
+				毕竟越来越感觉到<br>
+				时间过的，是真的快啊...<br>
+				总之<br>
+				十几岁的身份就在今天结束了<br>
+				之后要用20岁的“阿姨”身份面对未来了啊<br>
+				又会经历什么呢？<br>
+				继续期待吧～<br>
+				-----未完.待续<br>
+	
+
+			</div>
+			<div id="loveHeart">
+				<canvas id="garden"></canvas>
+				<div id="words">
+					<div id="messages">
+								<div id="loveu">
+						twenty and happy<br/>
+						<div class="signature">- haowen feng</div>
+					</div>
+					</div>
+			
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script type="text/javascript">
+		var offsetX = $("#loveHeart").width() / 2;
+		var offsetY = $("#loveHeart").height() / 2 - 55;
+		var together = new Date();
+		together.setFullYear(2017,10,28);
+		together.setHours(0);
+		together.setMinutes(0);
+		together.setSeconds(0);
+		together.setMilliseconds(0);
+		
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+		    document.execCommand("stop");
+		} else {
+			setTimeout(function () {
+				startHeartAnimation();
+			}, 5000);
+
+			timeElapse(together);
+			setInterval(function () {
+				timeElapse(together);
+			}, 500);
+
+			adjustCodePosition();
+			$("#code").typewriter();
+		}
+	</script>
+</body>
+</html>

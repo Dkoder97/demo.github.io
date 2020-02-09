@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>2018.07.20</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type="text/css">
+		@font-face {
+			font-family: digit;
+			src: url('digital-7_mono.ttf') format("truetype");
+		}
+	</style>
+	<link href="css/default1.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/garden.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>
+</head>
+
+<body>
+	<div id="mainDiv">
+		<div id="content">
+			<div id="code">
+				告！辞！<br>
+				考完了考完了哈哈哈哈哈哈哈哈哈<br>
+				哈哈哈哈哈哈哈哈<br>
+				哈哈哈哈哈哈哈哈哈<br>
+				哈哈哈哈哈哈哈哈哈<br>
+				哈哈哈哈哈哈哈哈哈<br>
+				哈哈哈哈哈哈哈哈哈<br>
+				这学期实在是太刺激了<br>
+				刺激到我真的要担心自己的身体了<br>
+				速成答辩<br>
+				大半夜学运筹<br>
+				能撑下来简直堪称奇迹<br>
+				但是这样的日子我是不想再来一遍了<br>
+				。。。<br>
+				不过话说回来<br>
+				大二这就结束了？<br>			
+				时间<br>
+				可真快啊<br>
+
+			</div>
+			<div id="loveHeart">
+				<canvas id="garden"></canvas>
+				<div id="words">
+					<div id="messages">
+								<div id="loveu">
+						Goodbye, sophomore<br/>
+						<div class="signature">- haowen feng</div>
+					</div>
+					</div>
+			
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script type="text/javascript">
+		var offsetX = $("#loveHeart").width() / 2;
+		var offsetY = $("#loveHeart").height() / 2 - 55;
+		var together = new Date();
+		together.setFullYear(2017,10,28);
+		together.setHours(0);
+		together.setMinutes(0);
+		together.setSeconds(0);
+		together.setMilliseconds(0);
+		
+		if (!document.createElement('canvas').getContext) {
+			var msg = document.createElement("div");
+			msg.id = "errorMsg";
+			msg.innerHTML = "Your browser doesn't support HTML5!<br/>Recommend use Chrome 14+/IE 9+/Firefox 7+/Safari 4+"; 
+			document.body.appendChild(msg);
+			$("#code").css("display", "none")
+			$("#copyright").css("position", "absolute");
+			$("#copyright").css("bottom", "10px");
+		    document.execCommand("stop");
+		} else {
+			setTimeout(function () {
+				startHeartAnimation();
+			}, 5000);
+
+			timeElapse(together);
+			setInterval(function () {
+				timeElapse(together);
+			}, 500);
+
+			adjustCodePosition();
+			$("#code").typewriter();
+		}
+	</script>
+</body>
+</html>
